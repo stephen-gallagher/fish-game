@@ -38,10 +38,13 @@ class Obstacle {
       game.player.width += 10;
       game.player.height += 10;
       return true;
-    } else if (playerInfo.width < this.width) {
-      console.log(game.player.score);
     }
-    // } else if (playerInfo.width < this.width) {
-    // GAME OVER
+    if (dist(obstacleX, obstacleY, playerX, playerY) > this.width / 2) {
+      return false;
+    } else if (playerInfo.width < this.width) {
+      noLoop();
+      background('black');
+      console.log('collision');
+    }
   }
 }

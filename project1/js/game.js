@@ -3,7 +3,8 @@ class Game {
     // this.backgroundImages = [];
     // this.playerImage = null;
     this.obstacles = [];
-    this.plastics = [];
+    this.trashArray = [];
+    this.stateOfUniverse = 'healthy';
   }
   //   }
 
@@ -13,8 +14,19 @@ class Game {
   }
 
   preload() {
-    this.backgroundImage = [
-      { src: loadImage('assets/background/ocean-background.png') },
+    this.backgroundImages = [
+      {
+        src: loadImage('assets/background/sea_background.png'),
+        x: 0,
+        speed: 0,
+      },
+      { src: loadImage('assets/background/farground.png'), x: 0, speed: 0.5 },
+      {
+        src: loadImage('assets/background/mid_background.png'),
+        x: 0,
+        speed: 1,
+      },
+      { src: loadImage('assets/background/foreground.png'), x: 0, speed: 1.5 },
     ];
 
     this.jelly1 = loadImage('assets/fish/Jellyfish1.png');
@@ -26,6 +38,11 @@ class Game {
 
     this.playerImageRight = loadImage('assets/fish/Guppy-Large-Normal.png');
     this.playerImageLeft = loadImage('assets/fish/Guppy-Large-Normal-left.png');
+    this.playerImageSickRight = loadImage('assets/fish/Guppy Large Sick.png');
+    this.playerImageSickLeft = loadImage(
+      'assets/fish/Guppy Large Sick Left.png'
+    );
+
     this.obstacleImageRight = [
       { src: loadImage('assets/fish/Predator1-left.png') },
       { src: loadImage('assets/fish/Jellyfish2.png') },
@@ -36,7 +53,7 @@ class Game {
       { src: loadImage('assets/fish/Jellyfish6.png') },
       { src: loadImage('assets/fish/purplefish.png') },
     ];
-    this.plasticImage = [
+    this.trashImage = [
       { src: loadImage('assets/plastic/can.png') },
       { src: loadImage('assets/plastic/coke-can.png') },
       { src: loadImage('assets/plastic/cup.png') },
@@ -51,15 +68,23 @@ class Game {
     clear();
     this.background.draw();
     this.player.draw();
-    let randomPlastic = Math.floor(Math.random() * 7);
-    if (frameCount % 50 === 0) {
-      this.plastics.push(new Plastic(this.plasticImage[randomPlastic]));
-      console.log(this.plastics);
+
+    let randomTrash = Math.floor(Math.random() * 7);
+    if (frameCount % 160 === 0) {
+      this.trashArray.push(new Trash(this.trashImage[randomTrash]));
     }
-    this.plastics.forEach(function (plastic) {
-      plastic.draw();
+    this.trashArray.forEach(function (trash) {
+      trash.draw();
     });
-    if (frameCount % 50 === 0) {
+    this.trashArray = this.trashArray.filter((trash) => {
+      if (trash.collision(this.player) || trash.x + trash.width < 0) {
+        return false;
+      } else {
+        return true;
+      }
+    });
+
+    if (frameCount % 150 === 0) {
       this.obstacles.push(new Obstacle());
     }
     this.obstacles.forEach(function (obstacle) {
