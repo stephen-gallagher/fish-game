@@ -23,4 +23,7 @@ function draw() {
   if (keyIsDown(40)) {
     game.player.moveDown();
   }
+  //   function keyReleased() {
+  //     game.player.stop;
+  //   }
 }
