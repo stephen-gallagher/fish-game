@@ -18,10 +18,11 @@ class Player {
     this.x = constrain(this.x, 0, width - this.width);
     this.y = constrain(this.y, 0, height - this.height);
   }
+
   moveLeft() {
-    if (game.stateOfUniverse === 'healthy') {
+    if (game.stateOfFish === 'healthy') {
       this.image = game.playerImageLeft;
-    } else if (game.stateOfUniverse === 'sick') {
+    } else if (game.stateOfFish === 'sick') {
       this.image = game.playerImageSickLeft;
     }
     // this.image = game.playerImageLeft;

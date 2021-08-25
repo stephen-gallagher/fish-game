@@ -11,26 +11,27 @@ function setup() {
 
 function draw() {
   game.draw();
-  if (game.stateOfUniverse === 'healthy' && keyIsDown(37)) {
+  if (game.stateOfFish === 'healthy' && keyIsDown(37)) {
     game.player.moveLeft();
-  } else if (game.stateOfUniverse === 'sick' && keyIsDown(37)) {
+  } else if (game.stateOfFish === 'sick' && keyIsDown(37)) {
     game.player.moveRight();
   }
-  if (game.stateOfUniverse === 'healthy' && keyIsDown(38)) {
+  if (game.stateOfFish === 'healthy' && keyIsDown(38)) {
     game.player.moveUp();
-  } else if (game.stateOfUniverse === 'sick' && keyIsDown(38)) {
+  } else if (game.stateOfFish === 'sick' && keyIsDown(38)) {
     game.player.moveDown();
   }
-  if (game.stateOfUniverse === 'healthy' && keyIsDown(39)) {
+  if (game.stateOfFish === 'healthy' && keyIsDown(39)) {
     game.player.moveRight();
-  } else if (game.stateOfUniverse === 'sick' && keyIsDown(39)) {
+  } else if (game.stateOfFish === 'sick' && keyIsDown(39)) {
     game.player.moveLeft();
   }
-  if (game.stateOfUniverse === 'healthy' && keyIsDown(40)) {
+  if (game.stateOfFish === 'healthy' && keyIsDown(40)) {
     game.player.moveDown();
-  } else if (game.stateOfUniverse === 'sick' && keyIsDown(40)) {
+  } else if (game.stateOfFish === 'sick' && keyIsDown(40)) {
     game.player.moveUp();
   }
+
   //   function keyReleased() {
   //     game.player.stop;
   //   }

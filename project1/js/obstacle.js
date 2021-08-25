@@ -10,7 +10,7 @@ class Obstacle {
       this.image = game.obstacleImageRight[Math.floor(Math.random() * 2)];
     }
     this.y = Math.random() * height;
-    this.width = Math.random() * 150;
+    this.width = Math.random() * 200;
     this.height = this.width;
   }
 
@@ -42,9 +42,10 @@ class Obstacle {
     if (dist(obstacleX, obstacleY, playerX, playerY) > this.width / 2) {
       return false;
     } else if (playerInfo.width < this.width) {
-      noLoop();
-      background('black');
-      console.log('collision');
+      game.gameOver = true;
+      console.log(game.gameOver);
+      game.endGame();
     }
+    console.log(game.gameOver);
   }
 }
