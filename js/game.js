@@ -79,12 +79,12 @@ class Game {
       textSize(width / 23);
       textFont('Staatliches');
       fill(0, 0, 0);
-      text('PRESS R TO PLAY AGAIN', 420, 700);
+      text('PRESS R TO PLAY AGAIN', 420, 800);
     }
   }
 
   winGame() {
-    if (this.player.score === 200) {
+    if (this.player.score >= 200) {
       textFont('Rampart One');
       fill(0, 0, 0);
       textSize(width / 8);

@@ -16,7 +16,6 @@ function preload() {
 function setup() {
   createCanvas(1440, 900);
   game.setup();
-  // song.play();
 }
 
 function resetSketch() {
@@ -58,6 +57,7 @@ function draw() {
 function keyPressed() {
   if (keyCode === 32) {
     game.gameStart = 'start';
+    song.play();
   }
   if (keyCode === 82) {
     this.resetSketch();

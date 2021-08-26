@@ -13,7 +13,7 @@ class Player {
   draw() {
     image(this.image, this.x, this.y, this.width, this.height);
     this.x = constrain(this.x, 0, width - this.width);
-    this.y = constrain(this.y, 0, height - this.height);
+    this.y = constrain(this.y, 0 - this.height, height - this.height);
   }
 
   moveLeft() {
