@@ -22,7 +22,8 @@ class Obstacle {
     }
 
     image(this.image.src, this.x, this.y, this.width, this.height);
-    game.endGame();
+    game.loseGame();
+    game.winGame();
   }
 
   collision(playerInfo) {
@@ -32,33 +33,38 @@ class Obstacle {
     let playerX = playerInfo.x + playerInfo.width / 2;
     let playerY = playerInfo.y + playerInfo.height / 2;
 
+    let obX1 = this.x + this.width / 2;
+    let obX2 = this.x + this.height + this.width / 2;
+    let obY1 = this.y + this.height / 2;
+    let obY2 = this.y + this.width + this.height / 2;
+
+    let pX1 = playerInfo.x + playerInfo.width / 2;
+    let pX2 = playerInfo.x + playerInfo.height + playerInfo.width / 2;
+    let pY1 = playerInfo.y + playerInfo.height / 2;
+    let pY2 = playerInfo.y + playerInfo.width + playerInfo.height / 2;
+
+    if (obX1 === pX2 || obX2 === pX1 || obY1 === pY2 || obY2 === pY1) {
+      console.log('collision');
+    }
+
     if (dist(obstacleX, obstacleY, playerX, playerY) > playerInfo.width / 2) {
       return false;
-    } else if (playerInfo.width > this.width) {
+    } else if (playerInfo.width > playerInfo.width / 2 + this.width) {
+      chomp.play();
       game.player.score += 10;
       game.player.width += 10;
       game.player.height += 10;
-      // chomp.play();
       return true;
     }
-    if (dist(obstacleX, obstacleY, playerX, playerY) > playerInfo.width / 2) {
+    if (
+      dist(obstacleX, obstacleY, playerX, playerY) >
+      playerInfo.width / 2 + this.width / 2
+    ) {
       return false;
     } else if (playerInfo.width < this.width) {
+      youLost.play();
       game.gameOver = true;
-    }
-    if (game.player.score === 10) {
-      console.log('winner');
+      song.stop();
     }
   }
-  // wonGame() {
-  // if (game.player.score === 10) {
-  //   console.log('winner');
-  // textSize(width / 8);
-  // text('YOU WON!', 150, 450);
-  // textFont('Rampart One');
-  // fill(1, 60, 83);
-  // textSize(100);
-  // text('SCORE: ' + this.player.score, 400, 600);
-  // }
-  // }
 }

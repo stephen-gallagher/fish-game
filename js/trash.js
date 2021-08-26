@@ -28,6 +28,7 @@ class Trash {
     if (dist(trashX, trashY, playerX, playerY) > playerInfo.width / 2) {
       return false;
     } else {
+      sick.play();
       game.stateOfFish = 'sick';
       game.timer = 10;
       return true;

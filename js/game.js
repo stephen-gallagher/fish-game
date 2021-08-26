@@ -1,8 +1,8 @@
 class Game {
   constructor() {
+    // this.image = null;
     this.obstacles = [];
     this.trashArray = [];
-    this.animation = [];
     this.stateOfFish = 'healthy';
     this.gameOver = false;
     this.isWinner = false;
@@ -13,20 +13,9 @@ class Game {
   setup() {
     this.background = new Background();
     this.player = new Player();
-
-    let frames = this.spritedata.frames;
-    for (let i = 0; i < frames.length; i++) {
-      let pos = frames[i].position;
-      let img = this.spritesheet.get();
-      animation.push(img);
-      console.log(animation);
-    }
   }
 
   preload() {
-    this.spritedata = loadJSON('spritesheet.json');
-    this.spritesheet = loadImage('spritesheet.png');
-
     this.backgroundImages = [
       {
         src: loadImage('assets/background/sea_background.png'),
@@ -42,14 +31,11 @@ class Game {
       { src: loadImage('assets/background/foreground.png'), x: 0, speed: 1.5 },
     ];
 
-    this.jelly1 = loadImage('assets/fish/Jellyfish1.png');
     this.jelly2 = loadImage('assets/fish/Jellyfish2.png');
-    this.jelly3 = loadImage('assets/fish/Jellyfish3.png');
-    this.jelly4 = loadImage('assets/fish/Jellyfish4.png');
-    this.jelly5 = loadImage('assets/fish/Jellyfish5.png');
-    this.jelly6 = loadImage('assets/fish/Jellyfish6.png');
 
     this.enemyImage = loadImage('assets/fish/Predator1-left.png');
+
+    this.keyboardImage = loadImage('assets/keyboard.png');
 
     this.playerImageRight = loadImage('assets/fish/Guppy-Large-Normal.png');
     this.playerImageLeft = loadImage('assets/fish/Guppy-Large-Normal-left.png');
@@ -61,12 +47,13 @@ class Game {
 
     this.obstacleImageRight = [
       { src: loadImage('assets/fish/Predator1-left.png') },
-      { src: loadImage('assets/fish/Jellyfish2.png') },
+      { src: loadImage('assets/fish/jelly-gif4.gif') },
+      { src: loadImage('assets/fish/Predator-Sick-left.png') },
     ];
     this.obstacleImageLeft = [
       { src: loadImage('assets/fish/Predator 1.png') },
-      { src: loadImage('assets/fish/Jellyfish6.png') },
-      { src: loadImage('assets/fish/purplefish.png') },
+      { src: loadImage('assets/fish/jelly-gif4.gif') },
+      { src: loadImage('assets/fish/Predator-Sick.png') },
     ];
     this.trashImage = [
       { src: loadImage('assets/plastic/can.png') },
@@ -79,17 +66,34 @@ class Game {
     ];
   }
 
-  endGame() {
+  loseGame() {
     if (this.gameOver) {
       this.player.image = this.playerImageDead;
       this.player.x = this.player.x + random(-2, 2);
       this.player.y = this.player.y - 1;
+      textFont('Rampart One');
       textSize(width / 8);
       text('GAME OVER', 150, 450);
-      textFont('Rampart One');
-      fill(1, 60, 83);
       textSize(100);
-      text('SCORE: ' + this.player.score, 400, 600);
+      text('SCORE: ' + this.player.score, 420, 600);
+      textSize(width / 23);
+      textFont('Staatliches');
+      fill(0, 0, 0);
+      text('PRESS R TO PLAY AGAIN', 420, 700);
+    }
+  }
+
+  winGame() {
+    if (this.player.score === 200) {
+      textFont('Rampart One');
+      fill(0, 0, 0);
+      textSize(width / 8);
+      text('YOU WON!!', 200, 450);
+      textSize(width / 26);
+      text('YOU ARE THE BIGGEST FISH IN THE OCEAN', 100, 650);
+      textSize(width / 23);
+      textFont('Staatliches');
+      text('PRESS R TO PLAY AGAIN', 450, 800);
     }
   }
 
@@ -107,16 +111,19 @@ class Game {
       text('FISH FOOD CHAIN', 200, 300);
       textFont('Noto Sans JP');
       textSize(width / 50);
-      text('REACH THE TOP OF THE FOOD CHAIN BY FEEDING ON', 350, 400);
-      text('SMALLER FISH IN THE OCEAN', 470, 450);
+      text('REACH THE TOP OF THE FOOD CHAIN BY', 350, 400);
+      text('FEEDING ON SMALLER FISH IN THE OCEAN', 350, 450);
       textSize(width / 55);
-      text('WATCH OUT FOR THE TRASH FALLING FROM ABOVE!', 380, 550);
-      textSize(width / 25);
-      text('PRESS SPACEBAR TO PLAY', 350, 700);
+      text('WATCH OUT FOR THE TRASH FALLING FROM ABOVE!', 350, 550);
+      textSize(width / 23);
+      textFont('Staatliches');
+      text('PRESS SPACEBAR TO PLAY', 450, 700);
+
       image(this.playerImageDead, 70, 350, 200, 200);
       image(this.playerImageRight, 30, 550, 300, 300);
       image(this.enemyImage, 1050, 450, 375, 350);
       image(this.jelly2, 1200, 300, 125, 200);
+      image(this.keyboardImage, 950, 325, 200, 200);
     } else if (this.gameStart === 'start') {
       this.player.draw();
       if (!this.gameOver) {
@@ -158,14 +165,13 @@ class Game {
         }
       });
 
-      if (game.stateOfFish === 'sick') {
+      if (this.stateOfFish === 'sick') {
         if (frameCount % 60 === 0 && this.timer > 0) {
           this.timer--;
-          console.log(this.timer);
         }
         if (this.timer === 0) {
+          healthy.play();
           this.stateOfFish = 'healthy';
-          console.log(this.stateOfFish);
         }
       }
     }

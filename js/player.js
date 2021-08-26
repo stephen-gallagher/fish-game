@@ -11,9 +11,6 @@ class Player {
     this.image = game.playerImageRight;
   }
   draw() {
-    // console.log('player');
-    // this.velocity += this.inertia;
-    // this.x += this.velocity;
     image(this.image, this.x, this.y, this.width, this.height);
     this.x = constrain(this.x, 0, width - this.width);
     this.y = constrain(this.y, 0, height - this.height);
@@ -25,7 +22,6 @@ class Player {
     } else if (game.stateOfFish === 'sick') {
       this.image = game.playerImageSickLeft;
     }
-    // this.image = game.playerImageLeft;
     this.x -= 5;
   }
   moveUp() {
