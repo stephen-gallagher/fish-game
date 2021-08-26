@@ -61,7 +61,6 @@ class Obstacle {
     } else if (playerInfo.width < this.width) {
       youLost.play();
       game.gameOver = true;
-      song.stop();
     }
   }
 }
