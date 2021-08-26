@@ -22,6 +22,7 @@ class Obstacle {
     }
 
     image(this.image.src, this.x, this.y, this.width, this.height);
+    game.endGame();
   }
 
   collision(playerInfo) {
@@ -44,8 +45,8 @@ class Obstacle {
     } else if (playerInfo.width < this.width) {
       game.gameOver = true;
       console.log(game.gameOver);
-      game.endGame();
     }
+
     console.log(game.gameOver);
   }
 }
