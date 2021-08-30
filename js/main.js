@@ -3,6 +3,8 @@ let song;
 let chomp;
 let sick;
 let healthy;
+let youWon;
+let youLost;
 
 function preload() {
   game.preload();
@@ -11,6 +13,7 @@ function preload() {
   sick = loadSound('assets/sounds/sick.wav');
   healthy = loadSound('assets/sounds/healthy.wav');
   youLost = loadSound('assets/sounds/game-over.wav');
+  youWon = loadSound('assets/sounds/you-won.wav');
 }
 
 function setup() {
@@ -27,6 +30,8 @@ function resetSketch() {
   game.player.score = 0;
   game.player.x = 500;
   game.player.y = 500;
+  this.width = 41;
+  this.height = 40;
   game.player.image = game.playerImageRight;
 }
 

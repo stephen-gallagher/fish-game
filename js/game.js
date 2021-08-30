@@ -80,6 +80,7 @@ class Game {
       textFont('Staatliches');
       fill(0, 0, 0);
       text('PRESS R TO PLAY AGAIN', 420, 800);
+      // youLost.play();
     }
   }
 
@@ -94,6 +95,7 @@ class Game {
       textSize(width / 23);
       textFont('Staatliches');
       text('PRESS R TO PLAY AGAIN', 450, 800);
+      youWon.play();
     }
   }
 

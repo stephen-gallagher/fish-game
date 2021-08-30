@@ -9,12 +9,11 @@ class Trash {
 
   draw() {
     this.y++;
+    if (this.y === 825) {
+      this.x === this.x + 0;
+    }
     this.x = this.x + random(-2, 2);
     image(this.image.src, this.x, this.y, this.width, this.height);
-    if (this.y === height) {
-      this.y--;
-      this.x = this.x;
-    }
     this.y = constrain(this.y, 0, 825);
   }
 

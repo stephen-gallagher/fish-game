@@ -59,7 +59,6 @@ class Obstacle {
     if (dist(obstacleX, obstacleY, playerX, playerY) > playerInfo.width / 2) {
       return false;
     } else if (playerInfo.width < this.width) {
-      youLost.play();
       game.gameOver = true;
     }
   }
